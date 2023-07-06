@@ -1,0 +1,27 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;1,700&display=swap"); */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+body,
+p,
+i,
+a,
+div {
+	margin: 0;
+	padding: 0;
+}
+body {
+	/* font-family: "Courier New", Courier, monospace;
+	font-family: "Rubik", sans-serif; */
+	font-family: "Roboto", sans-serif;
+	/* background-color: #e78a3d; */
+	background-image: url(../public/Images/radiant-gradient.svg);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+	/* overflow: hidden; */
+}

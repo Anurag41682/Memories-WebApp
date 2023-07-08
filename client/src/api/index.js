@@ -1,5 +1,5 @@
 import axios from "axios";
-const url = "https://memories-pdwk.onrender.com/posts";
+const url = "https://memories-web-app-pi.vercel.app/posts";
 
 export const fetchPosts = () => axios.get(url);
 export const createPost = (newPost) => axios.post(url, newPost);

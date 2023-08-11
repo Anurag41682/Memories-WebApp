@@ -25,13 +25,12 @@ function Home() {
 export default Home;
 
 const ContainerI = styled.div`
-  padding: 1rem;
+  /* padding: 1rem; */
 `;
 const ContainerII = styled.div``;
 const GridI = styled.div`
   display: flex;
-
-  @media (max-width: 530px) {
+  @media (max-width: 768px) {
     flex-direction: column-reverse;
   }
 `;

@@ -43,16 +43,18 @@ function Navbar() {
                 ></img>
               </Avatar>
               <h6>{user.result.name}</h6>
-              <button onClick={logout}>LogOut</button>
+              <Button>
+                <button onClick={logout}>Logout</button>
+              </Button>
             </User>
           ) : (
-            <LoginButton>
+            <Button>
               <button>
                 <Link className="lnk" to="/auth">
                   Login
                 </Link>
               </button>
-            </LoginButton>
+            </Button>
           )}
         </ToolBar>
       </AppBar>
@@ -61,40 +63,47 @@ function Navbar() {
 }
 export default Navbar;
 const AppBarWrapper = styled.div`
-  margin-top: 1rem;
+  position: fixed;
   display: flex;
   justify-content: center;
+  z-index: 1;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%);
+  width: 100vw;
 `;
 const AppBar = styled.div`
   display: flex;
+  width: 100%;
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  background-color: #00709c;
+  background-color: #0d111e;
   border-radius: 5px;
   padding: 0.3rem;
-  width: 94vw;
-  border: 2px solid black;
+  border: 2px solid #39475f;
 `;
 const Heading = styled.h2`
   & .lnk {
     text-decoration: none;
-    color: #e9e9e9;
+    color: #9aa3b4;
   }
 `;
 const User = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #9aa3b4;
   gap: 0.5rem;
 `;
 const ToolBar = styled.div``;
 const Avatar = styled.div``;
-const LoginButton = styled.div`
+const Button = styled.div`
   & button {
     padding: 10px 20px;
-    background-color: #012953;
     color: white;
+    /* background-color: #364154; */
+    background-color: #023a75;
     border: none;
     border-radius: 5px;
     font-size: 16px;
@@ -105,6 +114,7 @@ const LoginButton = styled.div`
     }
   }
   & button:hover {
+    /* background-color: #647c96; */
     background-color: #02438a;
   }
 `;

@@ -15,6 +15,7 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use("/posts", postRoutes);
 app.use("/users", userRoutes);
 //mongodb Setup
+
 const URL = process.env.URL;
 const PORT = process.env.PORT;
 mongoose

@@ -54,7 +54,7 @@ const Form = ({ currentId, setCurrentId }) => {
     <Container>
       <Fixed_Container>
         <form autoComplete="off" noValidate onSubmit={handleSubmit}>
-          <Heading>{currentId ? "Editing" : "Creating"} a memory</Heading>
+          <Heading>{currentId ? "Editing the" : "Create a"} memory</Heading>
           <InputWrapper>
             <Input>
               <input
@@ -67,6 +67,16 @@ const Form = ({ currentId, setCurrentId }) => {
               <label>Title</label>
             </Input>
             <Input>
+              <input
+                name="tags"
+                value={postData.tags}
+                onChange={(e) => {
+                  setPostData({ ...postData, tags: e.target.value.split(",") });
+                }}
+              ></input>
+              <label>Tags</label>
+            </Input>
+            <Input>
               <textarea
                 className="msg"
                 name="message"
@@ -77,16 +87,7 @@ const Form = ({ currentId, setCurrentId }) => {
               ></textarea>
               <label>Message</label>
             </Input>
-            <Input>
-              <input
-                name="tags"
-                value={postData.tags}
-                onChange={(e) => {
-                  setPostData({ ...postData, tags: e.target.value.split(",") });
-                }}
-              ></input>
-              <label>Tags</label>
-            </Input>
+            <br></br>
             <FileWrapper className="input-file">
               <FileBase
                 className="file"
@@ -112,61 +113,41 @@ const Form = ({ currentId, setCurrentId }) => {
 export default Form;
 const ContainerToLogin = styled.div`
   flex: 1;
-  justify-content: center;
-  align-items: center;
+  padding: 1rem;
 `;
 const Container = styled.div`
   flex: 1;
+  padding: 1rem;
 `;
 const Fixed_Container = styled.div`
-  position: fixed;
-  margin: 1rem;
-  border: 1px solid black;
   padding: 1rem;
+  text-align: center;
   border-radius: 5px;
-  background-color: #94c7db;
-  height: 70vh;
-  & form {
-    width: 250px;
-  }
+  background-color: #0d111e;
+  color: #9aa3b4;
+  box-shadow: 1px 1px 8px #9ca4ac;
+  position: fixed;
+  top: 3.2rem; /* Adjust as needed */
+  left: 65.7vw; /* Adjust as needed */
+  bottom: 0rem;
+  right: 0rem;
+
   @media (max-width: 768px) {
+    margin: 0;
+    margin-top: 3.2rem;
     position: static;
-    & form {
-      width: 186px;
-    }
   }
-  @media (max-width: 530px) {
-    position: static;
-    & form {
-      width: 380px;
-    }
-  }
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin: 1rem;
+  box-sizing: border-box;
 `;
 const Heading = styled.h3`
-  padding-bottom: 1rem;
+  margin-bottom: 3rem;
+  text-align: center;
 `;
 const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  & .msg {
-    height: 7rem;
-    width: 169px;
-  }
-  @media (max-width: 768px) {
-    & .msg {
-      height: 5rem;
-      width: 102px;
-    }
-  }
-  @media (max-width: 530px) {
-    & .msg {
-      width: 122px;
-    }
-  }
   & .input-file input[type="file" i]::-webkit-file-upload-button {
     display: flex;
     text-align: center;
@@ -177,16 +158,26 @@ const Input = styled.div`
   flex-direction: row-reverse;
   justify-content: space-between;
   & input {
-    width: 167px;
+    width: 15vw;
+    background-color: #e6e6e6;
+  }
+  & .msg {
+    background-color: #e6e6e6;
+    height: 30vh;
+    width: 15vw;
+  }
+  & .msg:focus {
+    outline: none;
+  }
+  & input:focus {
+    outline: none;
   }
   @media (max-width: 768px) {
     & input {
-      width: 100px;
+      width: 40vw;
     }
-  }
-  @media (max-width: 530px) {
-    & input {
-      width: 120px;
+    & .msg {
+      width: 40vw;
     }
   }
 `;
@@ -196,4 +187,11 @@ const ButtonWrapper = styled.div`
   display: flex;
   gap: 1rem;
   justify-content: center;
+  & button {
+    background-color: #023a75;
+    border: none;
+    border-radius: 5px;
+    padding: 0.4rem 0.6rem;
+    color: white;
+  }
 `;

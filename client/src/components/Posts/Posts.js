@@ -22,12 +22,15 @@ const Posts = ({ setCurrentId }) => {
 export default Posts;
 const CircularProgress = styled.div``;
 const Grid = styled.div`
-  flex: 3;
+  flex: 2;
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  margin: 1rem;
+  margin-top: 3.2rem;
+  padding: 1rem;
+  @media (max-width: 768px) {
+    margin-top: 0;
+  }
 `;
 const Post_Wrapper = styled.div`
   display: flex;

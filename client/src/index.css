@@ -19,7 +19,8 @@ body {
 	font-family: "Rubik", sans-serif; */
 	font-family: "Roboto", sans-serif;
 	/* background-color: #e78a3d; */
-	background-image: url(../public/Images/radiant-gradient.svg);
+	/* background-image: url(../public/Images/radiant-gradient.svg); */
+	background-color:   #243246;	
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-size: cover;

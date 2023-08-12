@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { styled } from "styled-components";
-import FileBase from "react-file-base64";
 import { useDispatch, useSelector } from "react-redux";
 import { createPost, updatePost } from "../../actions/posts";
 
@@ -41,11 +40,33 @@ const Form = ({ currentId, setCurrentId }) => {
     }
     clear();
   };
+  const onFileSelect = ({ file, base64Data }) => {
+    // Handle the selected file and its Base64 data
+    setPostData({ ...postData, selectedFile: base64Data });
+    // console.log(base64Data);
+  };
+  const convertFileToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+  };
+  const handleFileChange = async (event) => {
+    const file = event.target.files[0];
+    // setSelectedFile(file);
+    if (file) {
+      const base64Data = await convertFileToBase64(file);
+      onFileSelect({ file, base64Data });
+    }
+  };
+
   if (!user?.result?.name) {
     return (
       <ContainerToLogin>
         <Fixed_Container>
-          <h4>Please login first to create memories.</h4>
+          <h4>Please login first to create and like Memories.</h4>
         </Fixed_Container>
       </ContainerToLogin>
     );
@@ -89,14 +110,15 @@ const Form = ({ currentId, setCurrentId }) => {
             </Input>
             <br></br>
             <FileWrapper className="input-file">
-              <FileBase
+              {/* <FileBase
                 className="file"
                 type="file"
                 multiple={false}
                 onDone={({ base64 }) =>
                   setPostData({ ...postData, selectedFile: base64 })
                 }
-              ></FileBase>
+              ></FileBase> */}
+              <input type="file" onChange={handleFileChange} />
             </FileWrapper>
           </InputWrapper>
           <ButtonWrapper>
@@ -131,7 +153,9 @@ const Fixed_Container = styled.div`
   left: 65.7vw; /* Adjust as needed */
   bottom: 0rem;
   right: 0rem;
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
   @media (max-width: 768px) {
     margin: 0;
     margin-top: 3.2rem;
@@ -142,29 +166,31 @@ const Fixed_Container = styled.div`
 `;
 const Heading = styled.h3`
   margin-bottom: 3rem;
-  text-align: center;
+  /* text-align: center; */
 `;
 const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  & .input-file input[type="file" i]::-webkit-file-upload-button {
+  /* & .input-file input[type="file" i]::-webkit-file-upload-button {
     display: flex;
     text-align: center;
-  }
+    width: 1rem;
+  } */
 `;
 const Input = styled.div`
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-between;
+  gap: 0.5rem;
   & input {
-    width: 15vw;
+    width: 14vw;
     background-color: #e6e6e6;
   }
   & .msg {
     background-color: #e6e6e6;
     height: 30vh;
-    width: 15vw;
+    width: 14vw;
   }
   & .msg:focus {
     outline: none;
@@ -181,7 +207,11 @@ const Input = styled.div`
     }
   }
 `;
-const FileWrapper = styled.div``;
+const FileWrapper = styled.div`
+  & input {
+    width: 12rem;
+  }
+`;
 const ButtonWrapper = styled.div`
   margin-top: 1rem;
   display: flex;

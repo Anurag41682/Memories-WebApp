@@ -3,7 +3,7 @@ import { styled } from "styled-components";
 import moment from "moment";
 import { useDispatch } from "react-redux";
 import { deletePost, likePost } from "../../../actions/posts";
-
+import { animateScroll } from "react-scroll";
 const Post = ({ post, setCurrentId }) => {
   const user = JSON.parse(localStorage.getItem("profile"));
   const Likes = () => {
@@ -36,6 +36,12 @@ const Post = ({ post, setCurrentId }) => {
     );
   };
   const dispatch = useDispatch();
+  const handleClick = () => {
+    setCurrentId(post._id);
+    if (window.innerWidth <= 768) {
+      animateScroll.scrollToTop({ smooth: true, duration: 1000 });
+    }
+  };
   return (
     <Card>
       <CardMedia>
@@ -43,7 +49,14 @@ const Post = ({ post, setCurrentId }) => {
         {(user?.result?.googleId === post?.creator ||
           user?.result?._id === post?.creator) && (
           <div className="dot">
-            <button onClick={() => setCurrentId(post._id)}>
+            <button
+              // onClick={() => {
+              //   setCurrentId(post._id);
+              //   if(screenWidth<768px){
+              //   }
+              // }}
+              onClick={handleClick}
+            >
               <img src="./Images/more_horiz.svg"></img>
             </button>
           </div>
@@ -144,6 +157,12 @@ const CardAction = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+  @media (max-width: 480px) {
+    & .btn {
+      width: 4.8rem;
+      height: 2rem;
+    }
   }
 `;
 const Button = styled.div`

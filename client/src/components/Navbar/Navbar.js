@@ -31,7 +31,7 @@ function Navbar() {
             Memories
           </Link>
         </Heading>
-        <img src={memories} alt="memories" height="40"></img>
+        <img src={memories} alt="memories"></img>
         <ToolBar>
           {user ? (
             <User>
@@ -82,11 +82,22 @@ const AppBar = styled.div`
   border-radius: 5px;
   padding: 0.3rem;
   border: 2px solid #39475f;
+  & img {
+    width: 20px;
+  }
+  @media (max-width: 480px) {
+    & img {
+      width: 16px;
+    }
+  }
 `;
 const Heading = styled.h2`
   & .lnk {
     text-decoration: none;
     color: #9aa3b4;
+  }
+  @media (max-width: 480px) {
+    font-size: 14px;
   }
 `;
 const User = styled.div`
@@ -116,5 +127,10 @@ const Button = styled.div`
   & button:hover {
     /* background-color: #647c96; */
     background-color: #02438a;
+  }
+  @media (max-width: 480px) {
+    & button {
+      font-size: 12px;
+    }
   }
 `;

@@ -73,9 +73,9 @@ function Auth() {
         <Avatar>
           <img className="lockSvg" src="./Images/lock-outlined.svg"></img>
         </Avatar>
-        <h5>{isSignUp ? `SignOut` : `SignIn`}</h5>
+        <h2>{isSignUp ? `Signup` : `Signin`}</h2>
         <form onSubmit={handleSubmit}>
-          <Grid>
+          <InputWrapper>
             {isSignUp && (
               <>
                 <Input
@@ -112,23 +112,25 @@ function Auth() {
                 type="password"
               ></Input>
             )}
-          </Grid>
-          <button type="submit">{isSignUp ? "SignUp" : "SignIn"}</button>
-          <GoogleLogin
-            // clientId="152756066086-qoojt6h5b0a1pqh5nl0kdd62n2b440j7.apps.googleusercontent.com"
-            render={(renderProps) => (
-              <button
-                onClick={renderProps.onClick}
-                disabled={renderProps.disabled}
-              >
-                <img width="20px" src={GoogleIcon}></img>
-                Google Sign In
-              </button>
-            )}
-            onSuccess={googleSuccess}
-            onFailure={googleFailure}
-            cookiePolicy="single_host_origin"
-          />
+          </InputWrapper>
+          <ButtonWrapper>
+            <button type="submit">{isSignUp ? "Signup" : "Signin"}</button>
+            <GoogleLogin
+              // clientId="152756066086-qoojt6h5b0a1pqh5nl0kdd62n2b440j7.apps.googleusercontent.com"
+              render={(renderProps) => (
+                <button
+                  onClick={renderProps.onClick}
+                  disabled={renderProps.disabled}
+                >
+                  <img width="20px" src={GoogleIcon}></img>
+                  Google Sign In
+                </button>
+              )}
+              onSuccess={googleSuccess}
+              onFailure={googleFailure}
+              cookiePolicy="single_host_origin"
+            />
+          </ButtonWrapper>
           <Grid>
             <button onClick={switchMode}>
               {isSignUp
@@ -143,20 +145,51 @@ function Auth() {
 }
 export default Auth;
 const Container = styled.div`
-  margin-top: 2rem;
+  margin-top: 8.2rem;
   display: flex;
   justify-content: center;
+  & button {
+    background-color: #023a75;
+    color: white;
+  }
+  margin-bottom: 10rem;
 `;
 const CustomPaper = styled.div`
-  background-color: #94c7db;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #0d111e;
+  color: #9aa3b4;
+  box-shadow: 1px 1px 8px #9ca4ac;
   border-radius: 4px;
-  padding: 16px;
+  padding: 2rem;
+  width: 25rem;
+  @media (max-width: 480px) {
+    width: 15rem;
+  }
 `;
 const Avatar = styled.div`
+  display: flex;
+  justify-content: center;
   & .lockSvg {
     width: 3rem;
     height: auto;
   }
 `;
-const Grid = styled.div``;
+const InputWrapper = styled.div`
+  margin: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+const Grid = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-around;
+  margin: 1rem;
+
+  & button {
+    display: flex;
+    align-items: center;
+  }
+`;

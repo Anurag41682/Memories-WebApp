@@ -14,13 +14,13 @@ const Posts = ({ setCurrentId }) => {
     </CircularProgress>
   ) : (
     <Grid>
-      <Post_Wrapper>
+      <PostWrapper>
         {posts.map((post) => (
           <GridII key={post._id}>
             <Post post={post} setCurrentId={setCurrentId} />
           </GridII>
         ))}
-      </Post_Wrapper>
+      </PostWrapper>
     </Grid>
   );
 };
@@ -68,7 +68,7 @@ const Grid = styled.div`
     margin-top: 0;
   }
 `;
-const Post_Wrapper = styled.div`
+const PostWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;

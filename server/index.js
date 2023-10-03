@@ -18,6 +18,7 @@ app.use("/users", userRoutes);
 
 const URL = process.env.URL;
 const PORT = process.env.PORT;
+
 mongoose
   .connect(URL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => app.listen(PORT, () => console.log("It is listening")))

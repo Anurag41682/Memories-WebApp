@@ -9,8 +9,8 @@ function App() {
     <BrowserRouter>
       <Navbar />
       <Routes>
-        <Route path="/" Component={Home}></Route>
-        <Route path="/auth" Component={Auth}></Route>
+        <Route path="/" element={Home}></Route>
+        <Route path="/auth" element={Auth}></Route>
       </Routes>
     </BrowserRouter>
   );

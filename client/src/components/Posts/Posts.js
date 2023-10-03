@@ -1,14 +1,14 @@
 import React from "react";
 import Post from "./Post/Post";
 import { useSelector } from "react-redux";
-import { styled } from "styled-components";
+import styled from "styled-components";
 const Posts = ({ setCurrentId }) => {
   const posts = useSelector((state) => state.posts);
   //console.log(posts);
   return !posts.length ? (
     <CircularProgress>
-      <div class="loading-screen">
-        <div class="loading-spinner"></div>
+      <div className="loading-screen">
+        <div className="loading-spinner"></div>
         <p>Loading...</p>
       </div>
     </CircularProgress>

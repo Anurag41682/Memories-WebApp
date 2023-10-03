@@ -1,6 +1,6 @@
 import Visible from "../../images/visibility.svg";
 import VisibleOff from "../../images/visibility-off.svg";
-import { styled } from "styled-components";
+import styled from "styled-components";
 function Input({
   label,
   name,

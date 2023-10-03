@@ -9,8 +9,8 @@ function App() {
     <BrowserRouter>
       <Navbar />
       <Routes>
-        <Route path="/" element={Home}></Route>
-        <Route path="/auth" element={Auth}></Route>
+        <Route exact path="/" element={<Home></Home>}></Route>
+        <Route exact path="/auth" element={<Auth></Auth>}></Route>
       </Routes>
     </BrowserRouter>
   );

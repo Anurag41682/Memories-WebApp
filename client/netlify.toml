@@ -1,0 +1,17 @@
+[build]
+  # The directory where your build command runs.
+  base = "/client"
+
+  # The command to build your React app.
+  command = "npm run build"
+
+[build.environment]
+  # Set environment variables if needed.
+  # For example, you can set NODE_ENV to "production."
+  NODE_ENV = "production"
+
+[dev]
+  # Configure settings for the development server.
+  command = "npm start" # Modify this if your React app has a different start command.
+  publish = "client/build" # Specify the public directory for the development server.
+

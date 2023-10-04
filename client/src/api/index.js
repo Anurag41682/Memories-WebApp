@@ -1,5 +1,5 @@
 import axios from "axios";
-const url = "https://memories-web-app-pi.vercel.app";
+const url = "https://memories-web-app-psi.vercel.app";
 // const url = "http://localhost:3001/posts";
 const API = axios.create({ baseURL: url });
 API.interceptors.request.use((req) => {

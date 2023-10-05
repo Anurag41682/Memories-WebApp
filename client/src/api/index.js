@@ -1,6 +1,6 @@
 import axios from "axios";
-const url = "https://memories-web-app-psi.vercel.app";
-// const url = "http://localhost:3001/posts";
+const url = "https://memories.anur4g.me";
+// const url = "http://localhost:3001";
 const API = axios.create({ baseURL: url });
 API.interceptors.request.use((req) => {
   if (localStorage.getItem("profile")) {

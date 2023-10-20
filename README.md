@@ -10,4 +10,4 @@
 
 ### DEPLOYMENT
 
-https://memorie5.netlify.app/
+https://memories-web-app-two.vercel.app/

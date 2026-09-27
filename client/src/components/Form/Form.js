@@ -17,7 +17,7 @@ const Form = ({ currentId, setCurrentId }) => {
   );
   const user = JSON.parse(localStorage.getItem("profile"));
   useEffect(() => {
-    if (post) setPostData(post);
+    if (post) setPostData({ ...post, tags: post.tags.join(", ") });
   }, [post]);
   const clear = () => {
     setCurrentId(null);
@@ -31,13 +31,14 @@ const Form = ({ currentId, setCurrentId }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const tags = postData.tags.split(",").map((tag) => tag.trim()).filter(Boolean);
 
     if (currentId) {
       dispatch(
-        updatePost(currentId, { ...postData, name: user?.result?.name })
+        updatePost(currentId, { ...postData, tags, name: user?.result?.name })
       );
     } else {
-      dispatch(createPost({ ...postData, name: user?.result?.name }));
+      dispatch(createPost({ ...postData, tags, name: user?.result?.name }));
     }
     clear();
   };
@@ -100,9 +101,9 @@ const Form = ({ currentId, setCurrentId }) => {
                 name="tags"
                 id="memory-tags"
                 placeholder="family, travel, sunday"
-                value={Array.isArray(postData.tags) ? postData.tags.join(", ") : postData.tags}
+                value={postData.tags}
                 onChange={(e) => {
-                  setPostData({ ...postData, tags: e.target.value.split(",") });
+                  setPostData({ ...postData, tags: e.target.value });
                 }}
               ></input>
               <label htmlFor="memory-tags">Tags <span>Separate with commas</span></label>

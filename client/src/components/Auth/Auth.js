@@ -70,10 +70,10 @@ function Auth() {
   return (
     <Container>
       <CustomPaper>
-        <Avatar>
-          <img className="lockSvg" src="./Images/lock-outlined.svg"></img>
-        </Avatar>
-        <h2>{isSignUp ? `Signup` : `Signin`}</h2>
+        <AuthMark><img className="lockSvg" src="./Images/lock-outlined.svg" alt=""></img></AuthMark>
+        <Eyebrow>YOUR PRIVATE COLLECTION</Eyebrow>
+        <h2>{isSignUp ? "Create your account" : "Welcome back"}</h2>
+        <Intro>{isSignUp ? "Start gathering the moments you want to keep close." : "Step back into the moments you have saved."}</Intro>
         <form onSubmit={handleSubmit}>
           <InputWrapper>
             {isSignUp && (
@@ -81,7 +81,7 @@ function Auth() {
                 <Input
                   label="First Name: "
                   name="firstName"
-                  autofocus
+                  autoFocus
                   handleChange={handleChange}
                 />
                 <Input
@@ -119,10 +119,11 @@ function Auth() {
               // clientId="152756066086-qoojt6h5b0a1pqh5nl0kdd62n2b440j7.apps.googleusercontent.com"
               render={(renderProps) => (
                 <button
+                  type="button"
                   onClick={renderProps.onClick}
                   disabled={renderProps.disabled}
                 >
-                  <img width="20px" src={GoogleIcon}></img>
+                  <img width="20px" src={GoogleIcon} alt=""></img>
                   Google Sign In
                 </button>
               )}
@@ -132,7 +133,7 @@ function Auth() {
             />
           </ButtonWrapper>
           <Grid>
-            <button onClick={switchMode}>
+            <button type="button" onClick={switchMode}>
               {isSignUp
                 ? "Already have an Account? SignIn"
                 : "Don't Have Account? SignUp"}
@@ -145,51 +146,64 @@ function Auth() {
 }
 export default Auth;
 const Container = styled.div`
-  margin-top: 8.2rem;
+  min-height: calc(100vh - 76px);
   display: flex;
   justify-content: center;
-  & button {
-    background-color: #023a75;
-    color: white;
-  }
-  margin-bottom: 10rem;
+  align-items: flex-start;
+  padding: clamp(2rem, 8vh, 5rem) 1rem 4rem;
 `;
 const CustomPaper = styled.div`
-  background-color: #0d111e;
-  color: #9aa3b4;
-  box-shadow: 1px 1px 8px #9ca4ac;
-  border-radius: 4px;
-  padding: 2rem;
-  width: 25rem;
-  @media (max-width: 480px) {
-    width: 15rem;
-  }
+  width: min(100%, 450px);
+  padding: clamp(1.5rem, 5vw, 2.75rem);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: var(--shadow);
+  animation: rise-in 650ms both;
+  & h2 { margin: 0.4rem 0 0; color: var(--ink); font-family: "Playfair Display", serif; font-size: 2rem; line-height: 1.15; }
 `;
-const Avatar = styled.div`
-  display: flex;
-  justify-content: center;
-  & .lockSvg {
-    width: 3rem;
-    height: auto;
-  }
+const AuthMark = styled.div`
+  display: grid;
+  width: 46px;
+  height: 46px;
+  margin-bottom: 1.35rem;
+  place-items: center;
+  border-radius: 14px;
+  background: #e8eee5;
+  & .lockSvg { width: 23px; height: auto; filter: invert(31%) sepia(17%) saturate(1073%) hue-rotate(113deg) brightness(91%); }
+`;
+const Eyebrow = styled.p`
+  margin: 0;
+  color: var(--coral);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+`;
+const Intro = styled.p`
+  margin: 0.55rem 0 1.8rem;
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.55;
 `;
 const InputWrapper = styled.div`
-  margin: 2rem 0;
+  margin: 1.6rem 0;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.1rem;
 `;
 const Grid = styled.div`
   display: flex;
   justify-content: center;
+  margin-top: 1.2rem;
+  & button { padding: 0.4rem; border: 0; background: transparent; color: var(--green); font-size: 0.78rem; font-weight: 700; cursor: pointer; }
 `;
 const ButtonWrapper = styled.div`
-  display: flex;
-  justify-content: space-around;
-  margin: 1rem;
-
-  & button {
-    display: flex;
-    align-items: center;
-  }
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.65rem;
+  & button { display: flex; width: 100%; min-height: 44px; align-items: center; justify-content: center; gap: 0.55rem; border: 0; border-radius: 5px; cursor: pointer; font-size: 0.84rem; font-weight: 700; }
+  & button[type="submit"] { background: var(--green); color: white; transition: background 180ms ease; }
+  & button[type="submit"]:hover { background: var(--green-dark); }
+  & button:not([type="submit"]) { border: 1px solid var(--line); background: white; color: #42564e; }
+  & button:not([type="submit"]):hover { background: #f7f9f5; }
 `;

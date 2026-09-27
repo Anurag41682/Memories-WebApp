@@ -31,21 +31,18 @@ const CircularProgress = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.8);
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 9999;
+    min-height: 240px;
+    color: var(--muted);
+    font-size: 0.85rem;
   }
   & .loading-spinner {
-    border: 4px solid rgba(0, 0, 0, 0.1);
-    border-top: 4px solid #3498db;
+    border: 3px solid #dce6dd;
+    border-top: 3px solid var(--coral);
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
+    width: 34px;
+    height: 34px;
+    margin-bottom: 0.8rem;
+    animation: spin 850ms linear infinite;
   }
 
   @keyframes spin {
@@ -58,20 +55,21 @@ const CircularProgress = styled.div`
   }
 `;
 const Grid = styled.div`
-  flex: 2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 3.2rem;
-  padding: 1rem;
-  @media (max-width: 768px) {
-    margin-top: 0;
-  }
+  width: 100%;
 `;
 const PostWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
+  column-count: 2;
+  column-gap: 1.2rem;
   width: 100%;
-  gap: 1rem;
+  @media (min-width: 1300px) { column-count: 3; }
+  @media (max-width: 520px) { column-count: 1; column-gap: 1rem; }
 `;
-const GridII = styled.div``;
+const GridII = styled.div`
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 1.2rem;
+  min-width: 0;
+  break-inside: avoid;
+  &:nth-child(3n + 2) { animation-delay: 80ms; }
+  &:nth-child(3n + 3) { animation-delay: 160ms; }
+`;

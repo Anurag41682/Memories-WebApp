@@ -42,36 +42,42 @@ const Post = ({ post, setCurrentId }) => {
       animateScroll.scrollToTop({ smooth: true, duration: 1000 });
     }
   };
+  const canEdit = user?.result?.googleId === post?.creator ||
+    user?.result?._id === post?.creator;
+  const editButton = canEdit && (
+    <button
+      className={!post.selectedFile ? "edit-inline" : undefined}
+      onClick={handleClick}
+      aria-label="Edit memory"
+    >
+      <img src="./Images/more_horiz.svg" alt=""></img>
+    </button>
+  );
   return (
     <Card>
-      <CardMedia>
-        <img className="IMG" src={post.selectedFile}></img>
-        {(user?.result?.googleId === post?.creator ||
-          user?.result?._id === post?.creator) && (
+      {post.selectedFile && (
+        <CardMedia>
+          <img className="IMG" src={post.selectedFile} alt={post.title || "Memory"}></img>
+          {canEdit && (
           <div className="dot">
-            <button
-              // onClick={() => {
-              //   setCurrentId(post._id);
-              //   if(screenWidth<768px){
-              //   }
-              // }}
-              onClick={handleClick}
-            >
-              <img src="./Images/more_horiz.svg"></img>
-            </button>
+              {editButton}
           </div>
-        )}
-      </CardMedia>
+          )}
+        </CardMedia>
+      )}
       <CardContent>
-        <Title>{post.title}</Title>
-        <div>
+        <TitleRow>
+          <Title>{post.title}</Title>
+          {!post.selectedFile && editButton}
+        </TitleRow>
+        <div className="meta">
           <h6>{post.name}</h6>
           <h5>{moment(post.createdAt).fromNow()}</h5>
         </div>
         <div>
           <h4>{post.tags.map((tag) => `#${tag} `)}</h4>
         </div>
-        <CardMessage>
+        <CardMessage className={!post.selectedFile ? "text-only" : undefined}>
           <h5 className="msg"> {post.message}</h5>
         </CardMessage>
         <CardAction>
@@ -81,7 +87,7 @@ const Post = ({ post, setCurrentId }) => {
               disabled={!user?.result}
               onClick={() => dispatch(likePost(post._id))}
             >
-              <img src="./Images/thumb-up.svg"></img>
+              <img src="./Images/thumb-up.svg" alt=""></img>
               <Likes></Likes>
             </button>
           </Button>
@@ -92,7 +98,7 @@ const Post = ({ post, setCurrentId }) => {
                 className="btn"
                 onClick={() => dispatch(deletePost(post._id))}
               >
-                <img src="./Images/delete-32-filled.svg"></img> Delete
+                <img src="./Images/delete-32-filled.svg" alt=""></img> Delete
               </button>
             </Button>
           )}
@@ -103,84 +109,131 @@ const Post = ({ post, setCurrentId }) => {
 };
 export default Post;
 const Card = styled.div`
-  border: 1px solid black;
-  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.92);
+  border-radius: 7px;
   overflow: hidden;
-  background-color: #0d111e;
-  color: #9aa3b4;
-  box-shadow: 1px 1px 8px #9ca4ac;
-  /* width: 20vw; */
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--ink);
+  box-shadow: 0 10px 28px rgba(31, 59, 50, 0.08);
+  animation: rise-in 600ms both;
+  transition: transform 220ms ease, box-shadow 220ms ease;
+  &:hover { transform: translateY(-4px); box-shadow: 0 18px 36px rgba(31, 59, 50, 0.13); }
 `;
 const CardMedia = styled.div`
   position: relative;
+  overflow: hidden;
+  background: #e3e9df;
   & .IMG {
+    display: block;
     width: 100%;
-    height: auto;
+    aspect-ratio: 1.38 / 1;
+    object-fit: cover;
+    transition: transform 500ms cubic-bezier(0.2, 0.7, 0.2, 1);
   }
+  ${Card}:hover & .IMG { transform: scale(1.035); }
   & .dot {
-    /* position: relative;
-		left: 192px;
-		top: -132px; */
     position: absolute;
-    right: 10px;
-    top: 10px;
+    right: 12px;
+    top: 12px;
     & button {
-      background-color: #023a75;
+      display: grid;
+      width: 36px;
+      height: 36px;
+      place-items: center;
+      background: rgba(22, 48, 41, 0.78);
       border: none;
-      border-radius: 5px;
-      padding: 0.2rem 0.4rem;
+      border-radius: 50%;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
     }
-    & button:hover {
-      background-color: #02438a;
-    }
+    & img { width: 20px; filter: brightness(0) invert(1); }
+    & button:hover { background: var(--green); }
   }
 `;
-const Title = styled.div``;
-const CardContent = styled.div`
-  padding: 1rem;
-  & * {
-    line-height: 25px;
-  }
-  & .msg {
-    padding: 0.4rem 0;
-    line-height: 15px;
-  }
-`;
-const CardMessage = styled.div``;
-const CardAction = styled.div`
-  padding-top: 0.6rem;
+const TitleRow = styled.div`
   display: flex;
+  align-items: flex-start;
   justify-content: space-between;
+  gap: 0.75rem;
+  & .edit-inline {
+    display: grid;
+    flex: 0 0 34px;
+    width: 34px;
+    height: 34px;
+    place-items: center;
+    margin-top: -0.2rem;
+    background: #edf2ec;
+    border: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 180ms ease, transform 180ms ease;
+  }
+  & .edit-inline:hover { background: #dce8dd; transform: translateY(-1px); }
+  & .edit-inline img { width: 18px; height: 18px; object-fit: contain; }
+`;
+const Title = styled.h3`
+  margin: 0 0 0.65rem;
+  color: var(--ink);
+  font-family: "Playfair Display", serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+`;
+const CardContent = styled.div`
+  padding: 1.05rem 1.1rem 1rem;
+  & .meta { display: flex; align-items: baseline; justify-content: space-between; gap: 0.6rem; }
+  & h6 { margin: 0; color: var(--green); font-size: 0.73rem; font-weight: 700; }
+  & h5 { margin: 0; color: #8d9a92; font-size: 0.68rem; font-weight: 500; }
+  & h4 { margin: 0.65rem 0 0; color: #d17458; font-size: 0.72rem; font-weight: 600; line-height: 1.5; overflow-wrap: anywhere; }
+  & .msg {
+    display: -webkit-box;
+    margin: 0.5rem 0 0;
+    overflow: hidden;
+    color: #566a60;
+    font-size: 0.82rem;
+    font-weight: 400;
+    line-height: 1.6;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+`;
+const CardMessage = styled.div`
+  min-height: 4.4rem;
+  &.text-only { min-height: 0; }
+`;
+const CardAction = styled.div`
+  padding-top: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  border-top: 1px solid #edf0ea;
   & .btn {
-    width: 10rem;
-    height: 2.2rem;
+    min-width: 44px;
+    min-height: 38px;
+    padding: 0.4rem 0.7rem;
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  @media (max-width: 480px) {
-    & .btn {
-      width: 4.8rem;
-      height: 2rem;
-    }
+    gap: 0.45rem;
+    white-space: nowrap;
+    & img { width: 16px; height: 16px; object-fit: contain; filter: brightness(0) invert(1); }
   }
 `;
 const Button = styled.div`
+  flex: 1;
+  min-width: 0;
   & button {
-    padding: 5px 20px;
     color: white;
-    /* background-color: #364154; */
-    background-color: #023a75;
+    background: var(--green);
     border: none;
-    border-radius: 5px;
-    font-size: 14px;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    font-weight: 700;
     cursor: pointer;
-    gap: 0.5rem;
+    transition: background 180ms ease, transform 180ms ease;
   }
-  & .hoverable:hover {
-    background-color: #02438a;
-  }
-  & .not-hoverable:hover {
-    cursor: not-allowed;
-  }
+  & .hoverable:hover { background: var(--green-dark); transform: translateY(-1px); }
+  & .not-hoverable { opacity: 0.65; }
+  & .not-hoverable:hover { cursor: not-allowed; }
 `;

@@ -11,9 +11,10 @@ function Input({
 }) {
   return (
     <Wrapper>
-      <label>{label}</label>
+      <label htmlFor={name}>{label}</label>
       <InputAndPass>
         <input
+          id={name}
           name={name}
           onChange={handleChange}
           required
@@ -24,9 +25,9 @@ function Input({
           <span>
             <button type="button" onClick={handleShowPassword}>
               {type === "password" ? (
-                <img width="20px" src={VisibleOff}></img>
+                <img width="20px" src={VisibleOff} alt=""></img>
               ) : (
-                <img width="20px" src={Visible}></img>
+                <img width="20px" src={Visible} alt=""></img>
               )}
             </button>
           </span>
@@ -38,29 +39,34 @@ function Input({
 export default Input;
 const Wrapper = styled.div`
   display: flex;
-  justify-content: space-between;
-  & label {
-    flex: 1;
-  }
+  flex-direction: column;
+  gap: 0.45rem;
+  & label { color: #465d54; font-size: 0.76rem; font-weight: 700; }
 `;
 const InputAndPass = styled.div`
   display: flex;
   align-items: center;
-  flex: 1;
-  /* gap: 1rem; */
+  gap: 0.5rem;
   & input {
-    padding: 5px;
-    width: 10rem;
-    @media (max-width: 480px) {
-      width: 5rem;
-    }
-  }
-  & input:focus {
-    outline: none;
+    min-width: 0;
+    width: 100%;
+    padding: 0.75rem 0.8rem;
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    background: rgba(250, 251, 247, 0.9);
+    color: var(--ink);
+    font-size: 0.85rem;
+    &:focus { border-color: #7eaa9c; outline: none; box-shadow: 0 0 0 3px rgba(82, 145, 124, 0.12); }
   }
   & button {
-    padding: 1px;
+    padding: 0.35rem;
     display: flex;
     align-items: center;
+    border: 0;
+    border-radius: 4px;
+    background: transparent;
+    cursor: pointer;
   }
+  & button:hover { background: #edf2ec; }
+  & button img { width: 19px; height: 19px; }
 `;
